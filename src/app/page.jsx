@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
+import ChatBot from "../../components/ChatBot";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -19,14 +20,20 @@ export default function Home() {
 
   const addToWishlist = async (product) => {
     await axios.post("/api/wishlist", product);
-    alert("Added to Wishlist ❤️");
+    alert("Added to Wishlist ❤");
   };
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">🛍️ Product Finder</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">🛍 Product Finder</h1>
 
-      {/* Search Form */}
+    
+      <div className="my-8">
+        <h2 className="text-2xl font-semibold text-center mb-4">Welcome to Smart Mitra</h2>
+        <ChatBot />
+      </div>
+
+    
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
         <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Product name" className="border p-2 rounded" />
         <select value={category} onChange={(e) => setCategory(e.target.value)} className="border p-2 rounded">
@@ -41,7 +48,7 @@ export default function Home() {
 
       <button onClick={handleSearch} className="bg-blue-600 text-white px-4 py-2 rounded">Search</button>
 
-      {/* Product Cards */}
+    
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
         {products.map((p, i) => (
           <div key={i} className="border rounded-lg p-4 shadow">
@@ -52,7 +59,7 @@ export default function Home() {
             <p className="text-sm">{p.source}</p>
             <div className="flex justify-between mt-2">
               <a href={p.link} target="_blank" className="text-blue-600 underline">View Product</a>
-              <button onClick={() => addToWishlist(p)}>❤️</button>
+              <button onClick={() => addToWishlist(p)}>❤</button>
             </div>
           </div>
         ))}
